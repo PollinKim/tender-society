@@ -1,6 +1,7 @@
 body {
   margin: 0;
-  padding: 0px;
+  padding-top: 0px;
+  padding-bottom: 20px;
   font-family: 'Pretendard Variable', sans-serif;
   font-weight: 400;
   background-color: #0B2A18;
