@@ -1,24 +1,898 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tender Society</title>
-  <link rel="stylesheet" href="style.css" />
-  <!-- Pretendard 웹폰트 -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretendard@1.3.8/dist/web/variable/pretendardvariable-dynamic-subset.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tender Society - 느슨한 연대</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;500;600&family=Pretendard:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-dark: #1e2d28;
+            --bg-green: #3d5a4c;
+            --bg-cream: #faf8f5;
+            --text-white: #ffffff;
+            --text-cream: #f0ebe3;
+            --text-muted: rgba(240, 235, 227, 0.65);
+            --text-dark: #1a1a1a;
+            --text-gray: #555555;
+            --accent: #e85a5a;
+            --green-light: #5a7d6a;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Pretendard', -apple-system, sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-cream);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .serif {
+            font-family: 'Noto Serif KR', serif;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ========== HERO ========== */
+        .hero {
+            min-height: 100vh;
+            min-height: 100dvh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 40px 24px;
+            background: linear-gradient(180deg, var(--bg-dark) 0%, #243832 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(90, 125, 106, 0.2) 0%, transparent 70%);
+            top: -100px;
+            right: -150px;
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 100px;
+            padding: 8px 20px;
+            font-size: 13px;
+            color: var(--text-cream);
+            margin-bottom: 32px;
+            backdrop-filter: blur(10px);
+        }
+
+        .hero h1 {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 42px;
+            font-weight: 400;
+            letter-spacing: -1px;
+            margin-bottom: 12px;
+        }
+
+        .hero .tagline {
+            font-size: 16px;
+            color: var(--text-muted);
+            margin-bottom: 40px;
+            letter-spacing: 4px;
+        }
+
+        .hero .headline {
+            font-size: 22px;
+            font-weight: 300;
+            line-height: 1.7;
+            margin-bottom: 16px;
+            color: var(--text-cream);
+        }
+
+        .hero .headline strong {
+            font-weight: 500;
+            color: var(--text-white);
+        }
+
+        .hero .subtext {
+            font-size: 15px;
+            color: var(--text-muted);
+            margin-bottom: 48px;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--text-cream);
+            color: var(--bg-dark);
+            font-size: 16px;
+            font-weight: 600;
+            padding: 16px 36px;
+            border-radius: 100px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background: var(--text-white);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+        }
+
+        .btn-primary svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .scroll-hint {
+            position: absolute;
+            bottom: 32px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 12px;
+            color: var(--text-muted);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            animation: float 2s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(6px); }
+        }
+
+        /* ========== HOW IT WORKS ========== */
+        .section {
+            padding: 100px 24px;
+        }
+
+        .section-label {
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--green-light);
+            margin-bottom: 16px;
+        }
+
+        .section-title {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 28px;
+            font-weight: 400;
+            margin-bottom: 48px;
+            line-height: 1.5;
+        }
+
+        .steps {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+
+        .step {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+        }
+
+        .step-number {
+            flex-shrink: 0;
+            width: 48px;
+            height: 48px;
+            background: var(--bg-green);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Noto Serif KR', serif;
+            font-size: 20px;
+            color: var(--text-cream);
+        }
+
+        .step-content h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-cream);
+        }
+
+        .step-content p {
+            font-size: 15px;
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+
+        /* ========== WHY LETTER ========== */
+        .why-section {
+            background: var(--bg-green);
+            padding: 100px 24px;
+        }
+
+        .why-section .section-label {
+            color: rgba(255,255,255,0.5);
+        }
+
+        .quote-card {
+            background: rgba(255,255,255,0.08);
+            border-radius: 20px;
+            padding: 32px;
+            margin-bottom: 24px;
+        }
+
+        .quote-card p {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 17px;
+            font-style: italic;
+            line-height: 1.9;
+            color: var(--text-cream);
+            margin-bottom: 16px;
+        }
+
+        .quote-card .author {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .why-text {
+            font-size: 15px;
+            color: var(--text-muted);
+            line-height: 1.9;
+            margin-top: 40px;
+        }
+
+        .why-text strong {
+            color: var(--text-cream);
+            font-weight: 500;
+        }
+
+        /* ========== SAFETY ========== */
+        .safety-section {
+            padding: 100px 24px;
+        }
+
+        .safety-grid {
+            display: grid;
+            gap: 20px;
+        }
+
+        .safety-item {
+            background: rgba(61, 90, 76, 0.3);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 20px;
+            padding: 28px;
+        }
+
+        .safety-item .icon {
+            width: 44px;
+            height: 44px;
+            background: var(--bg-green);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+        }
+
+        .safety-item .icon svg {
+            width: 22px;
+            height: 22px;
+            stroke: var(--text-cream);
+        }
+
+        .safety-item h3 {
+            font-size: 17px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-cream);
+        }
+
+        .safety-item p {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+
+        /* ========== PRICING ========== */
+        .pricing-section {
+            background: var(--bg-cream);
+            padding: 100px 24px;
+            color: var(--text-dark);
+        }
+
+        .pricing-section .section-label {
+            color: var(--bg-green);
+        }
+
+        .pricing-section .section-title {
+            color: var(--text-dark);
+        }
+
+        .pricing-card {
+            background: white;
+            border-radius: 24px;
+            padding: 40px 32px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pricing-card::before {
+            content: '🎉 초기 멤버 특별 혜택';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--accent);
+            color: white;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .pricing-card-inner {
+            margin-top: 32px;
+        }
+
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .price-row:last-child {
+            border-bottom: none;
+        }
+
+        .price-row .label {
+            font-size: 15px;
+            color: var(--text-gray);
+        }
+
+        .price-row .value {
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .price-row .value.free {
+            color: var(--accent);
+            font-size: 17px;
+        }
+
+        .price-row .original {
+            text-decoration: line-through;
+            color: #aaa;
+            margin-right: 8px;
+            font-weight: 400;
+        }
+
+        .pricing-note {
+            margin-top: 24px;
+            padding: 20px;
+            background: #f8f6f3;
+            border-radius: 12px;
+            font-size: 14px;
+            color: var(--text-gray);
+            line-height: 1.7;
+        }
+
+        .pricing-note strong {
+            color: var(--text-dark);
+        }
+
+        /* ========== RULES ========== */
+        .rules-section {
+            padding: 100px 24px;
+        }
+
+        .rules-list {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .rule-item {
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+        }
+
+        .rule-icon {
+            flex-shrink: 0;
+            width: 24px;
+            height: 24px;
+            background: var(--green-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 2px;
+        }
+
+        .rule-icon svg {
+            width: 14px;
+            height: 14px;
+            stroke: white;
+        }
+
+        .rule-item p {
+            font-size: 15px;
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+
+        .rule-item p strong {
+            color: var(--text-cream);
+            font-weight: 500;
+        }
+
+        /* ========== FINAL CTA ========== */
+        .cta-section {
+            padding: 100px 24px;
+            text-align: center;
+            background: linear-gradient(180deg, var(--bg-dark) 0%, #1a2622 100%);
+        }
+
+        .cta-section .section-title {
+            margin-bottom: 20px;
+        }
+
+        .cta-section .subtext {
+            font-size: 15px;
+            color: var(--text-muted);
+            margin-bottom: 40px;
+        }
+
+        /* ========== PODCAST ========== */
+        .podcast-section {
+            padding: 80px 24px;
+            background: var(--bg-green);
+        }
+
+        .podcast-card {
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 24px;
+            padding: 40px 32px;
+            text-align: center;
+        }
+
+        .podcast-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.1);
+            border-radius: 100px;
+            padding: 6px 16px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            color: var(--text-cream);
+            margin-bottom: 20px;
+        }
+
+        .podcast-card h3 {
+            font-size: 26px;
+            font-weight: 400;
+            color: var(--text-white);
+            margin-bottom: 16px;
+        }
+
+        .podcast-desc {
+            font-size: 15px;
+            color: var(--text-cream);
+            line-height: 1.8;
+            margin-bottom: 12px;
+        }
+
+        .podcast-sub {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin-bottom: 28px;
+        }
+
+        .podcast-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--text-cream);
+            color: var(--bg-dark);
+            font-size: 15px;
+            font-weight: 600;
+            padding: 14px 28px;
+            border-radius: 100px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .podcast-link:hover {
+            background: var(--text-white);
+            transform: translateY(-2px);
+        }
+
+        .podcast-link svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        /* ========== FOOTER ========== */
+        .footer {
+            padding: 60px 24px;
+            text-align: center;
+            border-top: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .footer-logo {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 24px;
+            margin-bottom: 32px;
+            color: var(--text-cream);
+        }
+
+        .footer-cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        .footer-card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 16px;
+            padding: 24px 20px;
+            text-align: left;
+        }
+
+        .footer-card-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-cream);
+            margin-bottom: 12px;
+        }
+
+        .footer-card-content {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+
+        @media (max-width: 480px) {
+            .footer-cards {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .footer-email {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        .footer-email a {
+            color: var(--text-cream);
+            text-decoration: none;
+            border-bottom: 1px solid rgba(255,255,255,0.3);
+            padding-bottom: 2px;
+        }
+
+        /* ========== ANIMATIONS ========== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 480px) {
+            .hero h1 { font-size: 32px; }
+            .hero .headline { font-size: 18px; }
+            .section-title { font-size: 24px; }
+            .pricing-card { padding: 32px 24px; }
+        }
+    </style>
 </head>
 <body>
-<div class="gallery">
-  <img src="gallery/tender_society1.png" alt="소개 페이지 1" />
-  <a href="https://docs.google.com/forms/d/e/1FAIpQLSdXVWnImw-EDgVSBH0q-kLi27Uc8Q4dR67eD3EbQHSgyhDL_Q/viewform?usp=header" target="_blank">
-    <img src="gallery/tender_society_butten.png" alt="버튼 1" />
-  </a>
-  <img src="gallery/tender_society2.png" alt="소개 페이지 2" />
-  <a href="https://docs.google.com/forms/d/e/1FAIpQLSdXVWnImw-EDgVSBH0q-kLi27Uc8Q4dR67eD3EbQHSgyhDL_Q/viewform?usp=header" target="_blank">
-    <img src="gallery/tender_society_butten2.png" alt="버튼 2" />
-  </a>
-</div>
 
-</body>
-</html>
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">✉️ 새로운 방식의 연결</div>
+            <h1 class="serif">Tender Society</h1>
+            <p class="tagline">느슨한 연대</p>
+            <p class="headline">
+                SNS는 지쳤고, 그렇다고<br>
+                <strong>혼자이고 싶진 않을 때.</strong>
+            </p>
+            <p class="subtext">
+                익명의 펜팔로 시작하는 따뜻한 관계
+            </p>
+            <a href="#pricing" class="btn-primary">
+                초기 멤버로 시작하기
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+            </a>
+        </div>
+        <div class="scroll-hint">
+            <span>스크롤하여 더 알아보기</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 5v14M5 12l7 7 7-7"/>
+            </svg>
+        </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="section">
+        <div class="container">
+            <p class="section-label reveal">How it works</p>
+            <h2 class="section-title reveal">어떻게 진행되나요?</h2>
+            
+            <div class="steps">
+                <div class="step reveal">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>가입 후 3일 내 매칭</h3>
+                        <p>가치관과 관심사를 바탕으로<br>딱 맞는 펜팔 친구를 찾아드려요.</p>
+                    </div>
+                </div>
+                <div class="step reveal">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>편지 작성 & 발송</h3>
+                        <p>저희 주소로 편지를 보내주세요.<br>상대방에게 안전하게 전달해 드릴게요.</p>
+                    </div>
+                </div>
+                <div class="step reveal">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>답장을 기다리는 설렘</h3>
+                        <p>편지가 도착하면 문자로 알려드려요.<br>느리지만 진심이 담긴 소통이 시작됩니다.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- WHY LETTER -->
+    <section class="why-section">
+        <div class="container">
+            <p class="section-label reveal">Why Letter</p>
+            <h2 class="section-title reveal">왜 편지인가요?</h2>
+            
+            <div class="quote-card reveal">
+                <p>"한 번 보내는 데 급급했던 메시지와 달리,<br>더 생각하게 되더라고요."</p>
+                <span class="author">— 초기 멤버 후기 중</span>
+            </div>
+            
+            <div class="quote-card reveal">
+                <p>"답장을 기다리는 것조차<br>선물처럼 느껴졌어요."</p>
+                <span class="author">— 초기 멤버 후기 중</span>
+            </div>
+            
+            <p class="why-text reveal">
+                느려서 불편하지만,<br>
+                <strong>느려서 소중해지는 것들</strong>이 있어요.<br><br>
+                가벼운 한마디도 기억에 남고,<br>
+                진심 담긴 친구를 만날 수 있습니다.
+            </p>
+        </div>
+    </section>
+
+    <!-- SAFETY -->
+    <section class="safety-section section">
+        <div class="container">
+            <p class="section-label reveal">Safety First</p>
+            <h2 class="section-title reveal">안전하게 보호해드려요</h2>
+            
+            <div class="safety-grid">
+                <div class="safety-item reveal">
+                    <div class="icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                        </svg>
+                    </div>
+                    <h3>완전한 익명성</h3>
+                    <p>실제 주소, 연락처, 이름 모두 비공개예요. 저희가 안전한 우체국 역할을 해드릴게요.</p>
+                </div>
+                
+                <div class="safety-item reveal">
+                    <div class="icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+                            <path d="M9 12l2 2 4-4"/>
+                            <circle cx="12" cy="12" r="10"/>
+                        </svg>
+                    </div>
+                    <h3>편지 사전 검수</h3>
+                    <p>모든 편지는 발송 전 확인해요. 부적절한 내용, 개인정보 요청은 사전에 차단합니다.</p>
+                </div>
+                
+                <div class="safety-item reveal">
+                    <div class="icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                            <circle cx="9" cy="7" r="4"/>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                        </svg>
+                    </div>
+                    <h3>새로운 매칭 보장</h3>
+                    <p>불편한 상황이 생기면? 걱정 마세요. 새로운 펜팔 친구를 바로 찾아드려요.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRICING -->
+    <section class="pricing-section" id="pricing">
+        <div class="container">
+            <p class="section-label reveal">Pricing</p>
+            <h2 class="section-title reveal">초기 멤버는 평생 무료</h2>
+            
+            <div class="pricing-card reveal">
+                <div class="pricing-card-inner">
+                    <div class="price-row">
+                        <span class="label">편지 1회 발송</span>
+                        <span class="value"><span class="original">2,000원</span> <span class="free">무료</span></span>
+                    </div>
+                    <div class="price-row">
+                        <span class="label">10+1회 패키지</span>
+                        <span class="value"><span class="original">20,000원</span> <span class="free">무료</span></span>
+                    </div>
+                    <div class="price-row">
+                        <span class="label">100+20회 패키지</span>
+                        <span class="value"><span class="original">200,000원</span> <span class="free">무료</span></span>
+                    </div>
+                </div>
+                
+                <div class="pricing-note">
+                    <strong>💡 초기 멤버 혜택</strong><br>
+                    지금 가입하시면 평생 무료로 이용하실 수 있어요.<br>
+                    한정 인원이 마감되면 대기 신청으로 전환됩니다.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- RULES -->
+    <section class="rules-section section">
+        <div class="container">
+            <p class="section-label reveal">Membership</p>
+            <h2 class="section-title reveal">함께 지켜주세요</h2>
+            
+            <div class="rules-list">
+                <div class="rule-item reveal">
+                    <div class="rule-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+                            <path d="M20 6L9 17l-5-5"/>
+                        </svg>
+                    </div>
+                    <p><strong>월 1회 이상</strong> 편지를 보내주세요.<br>느슨하지만, 함께하는 연대니까요.</p>
+                </div>
+                <div class="rule-item reveal">
+                    <div class="rule-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+                            <path d="M20 6L9 17l-5-5"/>
+                        </svg>
+                    </div>
+                    <p><strong>월 2회 이상 무응답</strong> 시 멤버십이 해지돼요.<br>남은 이용권은 전액 환불해 드려요.</p>
+                </div>
+                <div class="rule-item reveal">
+                    <div class="rule-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+                            <path d="M20 6L9 17l-5-5"/>
+                        </svg>
+                    </div>
+                    <p><strong>프라이빗한 커뮤니티</strong>를 지향해요.<br>한정 인원으로 운영됩니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section class="cta-section">
+        <div class="container">
+            <h2 class="section-title serif reveal">느슨하지만 따뜻한<br>연결을 시작하세요</h2>
+            <p class="subtext reveal">초기 멤버 모집 중 · 평생 무료</p>
+            <a href="/cdn-cgi/l/email-protection#2551404b4140570b564a464c40515c0b4a43434c464c4449654248444c490b464a48" class="btn-primary reveal">
+                가입 신청하기
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+            </a>
+        </div>
+    </section>
+
+    <!-- PODCAST SECTION -->
+    <section class="podcast-section">
+        <div class="container">
+            <div class="podcast-card reveal">
+                <div class="podcast-badge">🎙️ PODCAST</div>
+                <h3 class="serif">1호실에 사람 있어요</h3>
+                <p class="podcast-desc">
+                    Tender Society의 이야기를<br>
+                    팟빵에서 라디오로 만나보세요.
+                </p>
+                <p class="podcast-sub">
+                    여러분의 사연을 읽어드려요.<br>
+                    가입 전이라도 부담 없이 보내주세요!
+                </p>
+                <a href="#" class="podcast-link">
+                    <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                        <path d="M8 5v14l11-7z"/>
+                    </svg>
+                    팟빵에서 듣기
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <p class="footer-logo serif">Tender Society</p>
+            
+            <div class="footer-cards">
+                <div class="footer-card">
+                    <p class="footer-card-label">📮 멤버 편지 발송</p>
+                    <p class="footer-card-content">
+                        경기도 고양시 일산서구 일산로 593<br>
+                        3층 303호 김폴린
+                    </p>
+                </div>
+                
+                <div class="footer-card">
+                    <p class="footer-card-label">✉️ 팟캐스트 사연</p>
+                    <p class="footer-card-content">
+                        위 주소 또는 이메일로<br>
+                        사연을 보내주세요!
+                    </p>
+                </div>
+            </div>
+            
+            <p class="footer-email">
+                문의 : <a href="mailto:tender.society.official@gmail.com">tender.society.official@gmail.com</a>
+            </p>
+        </div>
+    </footer>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        // Reveal on scroll
+        const reveals = document.querySelectorAll('.reveal');
+        
+        const revealOnScroll = () => {
+            reveals.forEach(el => {
+                const top = el.getBoundingClientRect().top;
+                const windowHeight 
