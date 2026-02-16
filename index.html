@@ -6,10 +6,8 @@
     <title>Tender Society - 느슨한 연대</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;500;600&family=Pretendard:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;500;600&family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
-
         * {
             margin: 0;
             padding: 0;
@@ -32,7 +30,7 @@
         html { scroll-behavior: smooth; }
 
         body {
-            font-family: 'Pretendard', -apple-system, sans-serif;
+            font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Malgun Gothic', '맑은 고딕', sans-serif;
             background: var(--bg-dark);
             color: var(--text-cream);
             line-height: 1.7;
@@ -40,7 +38,7 @@
         }
 
         .serif {
-            font-family: 'Noto Serif KR', serif;
+            font-family: 'Noto Serif KR', 'Nanum Myeongjo', Georgia, serif;
         }
 
         .container {
@@ -92,11 +90,12 @@
         }
 
         .hero h1 {
-            font-family: 'Noto Serif KR', serif;
+            font-family: 'Noto Serif KR', 'Nanum Myeongjo', Georgia, serif;
             font-size: 42px;
             font-weight: 400;
             letter-spacing: -1px;
             margin-bottom: 12px;
+            color: var(--text-cream);
         }
 
         .hero .tagline {
@@ -184,11 +183,12 @@
         }
 
         .section-title {
-            font-family: 'Noto Serif KR', serif;
+            font-family: 'Noto Serif KR', 'Nanum Myeongjo', Georgia, serif;
             font-size: 28px;
             font-weight: 400;
             margin-bottom: 48px;
             line-height: 1.5;
+            color: var(--text-cream);
         }
 
         .steps {
@@ -212,7 +212,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-family: 'Noto Serif KR', serif;
+            font-family: 'Noto Serif KR', Georgia, serif;
             font-size: 20px;
             color: var(--text-cream);
         }
@@ -240,6 +240,10 @@
             color: rgba(255,255,255,0.5);
         }
 
+        .why-section .section-title {
+            color: var(--text-cream);
+        }
+
         .quote-card {
             background: rgba(255,255,255,0.08);
             border-radius: 20px;
@@ -248,7 +252,7 @@
         }
 
         .quote-card p {
-            font-family: 'Noto Serif KR', serif;
+            font-family: 'Noto Serif KR', Georgia, serif;
             font-size: 17px;
             font-style: italic;
             line-height: 1.9;
@@ -382,6 +386,7 @@
         .price-row .value {
             font-size: 15px;
             font-weight: 600;
+            color: var(--text-dark);
         }
 
         .price-row .value.free {
@@ -465,6 +470,7 @@
 
         .cta-section .section-title {
             margin-bottom: 20px;
+            color: var(--text-cream);
         }
 
         .cta-section .subtext {
@@ -500,6 +506,7 @@
         }
 
         .podcast-card h3 {
+            font-family: 'Noto Serif KR', Georgia, serif;
             font-size: 26px;
             font-weight: 400;
             color: var(--text-white);
@@ -552,7 +559,7 @@
         }
 
         .footer-logo {
-            font-family: 'Noto Serif KR', serif;
+            font-family: 'Noto Serif KR', Georgia, serif;
             font-size: 24px;
             margin-bottom: 32px;
             color: var(--text-cream);
@@ -826,7 +833,7 @@
         <div class="container">
             <h2 class="section-title serif reveal">느슨하지만 따뜻한<br>연결을 시작하세요</h2>
             <p class="subtext reveal">초기 멤버 모집 중 · 평생 무료</p>
-            <a href="/cdn-cgi/l/email-protection#2551404b4140570b564a464c40515c0b4a43434c464c4449654248444c490b464a48" class="btn-primary reveal">
+            <a href="mailto:tender.society.official@gmail.com" class="btn-primary reveal">
                 가입 신청하기
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M5 12h14M12 5l7 7-7 7"/>
@@ -888,11 +895,24 @@
         </div>
     </footer>
 
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    <script>
         // Reveal on scroll
         const reveals = document.querySelectorAll('.reveal');
         
         const revealOnScroll = () => {
             reveals.forEach(el => {
                 const top = el.getBoundingClientRect().top;
-                const windowHeight 
+                const windowHeight = window.innerHeight;
+                
+                if (top < windowHeight - 80) {
+                    el.classList.add('active');
+                }
+            });
+        };
+
+        window.addEventListener('scroll', revealOnScroll);
+        window.addEventListener('load', revealOnScroll);
+    </script>
+
+</body>
+</html>
